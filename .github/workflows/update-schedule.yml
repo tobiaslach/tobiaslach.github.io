@@ -15,8 +15,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y qpdf
       - name: Download schedule
         run: |
-          wget --user-agent="Mozilla/5.0" \
-            -O splan.pdf \
+          wget -O splan.pdf \
+
             "https://www.barnim-gymnasium.de/fileadmin/schulen/barnim-gymnasium/Dokumente/Pl%C3%A4ne/splan.pdf"
       - name: Decrypt PDF
         run: |
