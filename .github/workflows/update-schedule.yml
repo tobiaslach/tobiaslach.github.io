@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Update schedule
+        run: python update_schedule.py
+
       - name: Install qpdf
         run: sudo apt-get update && sudo apt-get install -y qpdf
       - name: Download schedule
@@ -21,10 +26,13 @@ jobs:
         run: |
           qpdf --password=schule --decrypt splan.pdf decrypted.pdf
           mv decrypted.pdf splan.pdf
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add splan.pdf
-          git commit -m "Update schedule" || echo "No changes" 
+          git add static/splan.pdf
+          git commit -m "Update schedule" || echo "No changes"
+
+
           git push
