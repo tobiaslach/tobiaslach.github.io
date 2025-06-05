@@ -32,7 +32,10 @@
         <button id="reload">Plan neu laden</button>
     </div>
     <script>
-        document.getElementById('reload').addEventListener('click', function() {
+        document.getElementById('reload').addEventListener('click', async function() {
+            await fetch("{{ url_for('refresh') }}", { method: 'POST' });
+
+      
             const frame = document.getElementById('plan');
             frame.src = "{{ url_for('static', filename='splan.pdf') }}?t=" + new Date().getTime();
         });
