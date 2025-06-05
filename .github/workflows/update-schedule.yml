@@ -15,24 +15,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: Update schedule
         run: python update_schedule.py
-
-      - name: Install qpdf
-        run: sudo apt-get update && sudo apt-get install -y qpdf
-      - name: Download schedule
-        run: |
-          wget -O splan.pdf \
-            "https://www.barnim-gymnasium.de/fileadmin/schulen/barnim-gymnasium/Dokumente/Pl%C3%A4ne/splan.pdf"
-      - name: Decrypt PDF
-        run: |
-          qpdf --password=schule --decrypt splan.pdf decrypted.pdf
-          mv decrypted.pdf splan.pdf
-
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add static/splan.pdf
           git commit -m "Update schedule" || echo "No changes"
-
-
           git push

@@ -2,4 +2,5 @@ Flask
 requests
 PyPDF2
 gunicorn
+pycryptodome
 
