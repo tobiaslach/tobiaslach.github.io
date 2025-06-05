@@ -16,7 +16,6 @@ jobs:
       - name: Download schedule
         run: |
           wget -O splan.pdf \
-
             "https://www.barnim-gymnasium.de/fileadmin/schulen/barnim-gymnasium/Dokumente/Pl%C3%A4ne/splan.pdf"
       - name: Decrypt PDF
         run: |

@@ -15,7 +15,6 @@
             height: 800px;
             border: none;
         }
-
         #actions {
             text-align: center;
             margin-top: 1rem;
@@ -23,21 +22,19 @@
         button {
             padding: 0.5rem 1rem;
             font-size: 1rem;
-
         }
     </style>
 </head>
 <body>
     <h1>Stundenplan der Klasse 7/6</h1>
-    <iframe id="plan" src="splan.pdf"></iframe>
+    <iframe id="plan" src="{{ url_for('static', filename='splan.pdf') }}"></iframe>
     <div id="actions">
-
         <button id="reload">Plan neu laden</button>
     </div>
     <script>
         document.getElementById('reload').addEventListener('click', function() {
             const frame = document.getElementById('plan');
-            frame.src = 'splan.pdf?t=' + new Date().getTime();
+            frame.src = "{{ url_for('static', filename='splan.pdf') }}?t=" + new Date().getTime();
         });
     </script>
 </body>
