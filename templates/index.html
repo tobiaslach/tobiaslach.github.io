@@ -27,13 +27,14 @@
 </head>
 <body>
     <h1>Stundenplan der Klasse 7/6</h1>
-    <iframe id="plan" src="static/splan.pdf"></iframe>
+    <iframe id="plan" src="{{ url_for('static', filename='splan.pdf') }}"></iframe>
     <div id="actions">
         <button id="reload">Plan neu laden</button>
     </div>
     <script>
-        document.getElementById('reload').addEventListener('click', function() {
-            frame.src = 'static/splan.pdf?t=' + new Date().getTime();
+        document.getElementById('reload').addEventListener('click', async function() {
+            await fetch("{{ url_for('refresh') }}", { method: 'POST' });
+
       
             const frame = document.getElementById('plan');
             frame.src = "{{ url_for('static', filename='splan.pdf') }}?t=" + new Date().getTime();
