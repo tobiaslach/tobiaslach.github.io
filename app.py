@@ -5,6 +5,7 @@ from update_schedule import update_schedule
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
@@ -21,6 +22,7 @@ def refresh():
     except Exception as exc:
         logging.exception("Failed to update schedule: %s", exc)
         return 'error', 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

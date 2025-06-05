@@ -4,6 +4,7 @@ from io import BytesIO
 import requests
 from PyPDF2 import PdfReader, PdfWriter
 
+
 URL = "https://www.barnim-gymnasium.de/fileadmin/schulen/barnim-gymnasium/Dokumente/Pl%C3%A4ne/splan.pdf"
 PASSWORD = "schule"
 DEST = "static/splan.pdf"
@@ -26,6 +27,7 @@ KEYWORDS = ["7/6", "Klassenleiter(in): Herz"]
 def decrypt_and_filter(data: bytes) -> bytes:
     """Decrypt the PDF and keep only pages containing all KEYWORDS."""
     logging.info("Decrypting and filtering pages containing %s", KEYWORDS)
+
     reader = PdfReader(BytesIO(data))
     if reader.is_encrypted:
         reader.decrypt(PASSWORD)
@@ -41,11 +43,13 @@ def decrypt_and_filter(data: bytes) -> bytes:
     output = BytesIO()
     writer.write(output)
     logging.info("Extracted %d page(s) matching keywords", pages_added)
+
     return output.getvalue()
 
 
 def update_schedule():
     logging.info("Starting schedule update")
+
     data = download_schedule()
     filtered = decrypt_and_filter(data)
     with open(DEST, "wb") as f:
